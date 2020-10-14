@@ -1,0 +1,36 @@
+<view class="title">
+  <text class="text">{{title}}</text>
+</view>
+<view class="nodata" wx:if="{{nodata}}">
+  <image class="nodataImage" src="/image/nodata.png"></image>
+  <text class="nodataText">暂无话题</text>
+</view>
+<block wx:else>
+  <view class="listbox">
+    <block wx:for="{{TopicList}}">
+      <view class="userinfo" bindtap="goTopicdetail" data-topicid="{{item.list[0]._id}}">
+
+        <view class="firstblock">
+          <image class="userinfo-avatar" src="{{item.list[0].ownerurl}}" mode="cover"></image>
+          <view class="person">
+            <text class="userinfo-nickname">{{item.list[0].ownernickname}}</text>
+            <text class="tel">{{item.list[0].date}}</text>
+          </view>
+        </view>
+
+        <view class="secondblock">
+          <text class="content">{{item.list[0].content}}</text>
+        </view>
+
+        <view class="thirdblock">
+          <view class="positive">{{item.list[0].positive}}</view>
+          <view class="negative">{{item.list[0].negative}}</view>
+        </view>
+        <view class="forthblock">
+          <text class="commentcount">{{item.list[0].count}}次讨论</text>
+        </view>
+
+      </view>
+    </block>
+  </view>
+</block>

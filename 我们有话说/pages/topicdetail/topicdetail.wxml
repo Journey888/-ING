@@ -1,0 +1,167 @@
+
+   <view class="userinfo">
+			<view class="firstblock">
+				<image class="userinfo-avatar" src="{{topic.ownerurl}}" mode="cover"></image>
+				<view class="person">
+					<text class="userinfo-nickname">{{topic.ownernickname}}</text>
+					<text class="tel">{{topic.date}}</text>
+				</view>
+			</view>
+
+			<view class="secondblock">
+				<text class="content">{{topic.content}}</text>
+			</view>
+
+			<view class="thirdblock">
+				<view class="positive">{{topic.positive}}</view>
+				<view class="negative">{{topic.negative}}</view>
+			</view>
+      <view class="forthblock">
+        <text class="count">{{topic.count}}次讨论</text>
+      </view>
+   </view>
+  <view class="nodata" wx:if="{{nodata}}">
+    <image class="nodataImage" src="/image/nodata.png"></image>
+    <text class="nodataText">暂无讨论</text>
+  </view>
+  <block wx:else>
+   <block wx:for="{{CommentList}}" wx:key="_id"> 
+      <view wx:if="{{item.standpoint==1}}">
+       <view class="comment1"> 
+        <view class="firstblock1">         
+				  <image class="userinfo-avatar" src="{{item.commentatorUrl}}" mode="cover"></image>
+				  <view class="person">
+					  <text class="userinfo-nickname">{{item.commentatorNickname}}</text>
+					  <text class="tel">{{item.date}}</text>
+				  </view>
+			  </view>
+
+			  <view class="secondblock2">
+				  <text class="content">{{item.commentcontent}}</text>
+			  </view>
+        <view class="fifthblock">
+          <image class="replyimage" bindtap="showreply" src="/image/reply.png" data-commentitem="{{item}}" data-index="{{index}}"></image>
+          <text class="count">{{item.count}}</text>
+          <image class="deleteimage" hidden="{{item.commentatorid!= openid}}" bindtap="delete" src="/image/delete.png" data-commentatorid="{{item.commentatorid}}" data-date="{{item.date}}" data-index="{{index}}"></image>
+        </view>
+       
+       </view>
+      </view>
+
+      <view wx:else>
+       <view class="comment2"> 
+        <view class="firstblock1">
+				  <image class="userinfo-avatar" src="{{item.commentatorUrl}}" mode="cover"></image>
+				  <view class="person">
+					  <text class="userinfo-nickname">{{item.commentatorNickname}}</text>
+					  <text class="tel">{{item.date}}</text>
+				  </view>
+		  	</view>
+
+			  <view class="secondblock2">
+				  <text class="content">{{item.commentcontent}}</text>
+			  </view>
+        <view class="fifthblock"> 
+          <image class="replyimage" bindtap="showreply" src="/image/reply.png" data-commentitem="{{item}}" data-index="{{index}}"></image>
+          <text class="count">{{item.count}}</text>
+          <image class="deleteimage" hidden="{{item.commentatorid!= openid}}" bindtap="delete" src="/image/delete.png" data-commentatorid="{{item.commentatorid}}" data-date="{{item.date}}" data-index="{{index}}"></image>
+        </view>
+       
+       </view>
+      </view>
+   </block>
+  </block>
+
+    <image class="commentimage" src="/image/comment.png" bindtap="join" ></image>
+    <image class="collectimage" src="{{collectImage}}" bindtap="collect" ></image>
+    <image class="backtopimage" src="/image/backtop.png" bindtap="backtop" hidden="{{!backtopstatus}}"></image>
+
+
+<!-- 评论表单弹窗 -->
+<view class="modalDlg"  wx:if='{{showModal}}'>
+  <view class='windowRow'>
+    <text class='userTitle'>参与讨论</text>
+    <view class='back' bindtap='back'>
+      返回
+    </view>
+  </view>
+  <view class='wishName'>
+    <radio-group  bindchange="catch">
+      <radio class="choose" value="1">
+          {{topic.positive}}
+      </radio>
+      <radio class="choose" value="0">
+          {{topic.negative}}
+      </radio>
+    </radio-group> 
+    <view class="textarea_bg">
+      <textarea placeholder="我认为..." type="text" bindinput="commentinput" class="commentinput"  maxlength="100"><view class="word">{{lastarea}}/100</view></textarea>
+    </view>
+  </view>
+  <view class='wishbnt'>
+    <button class='wishbnt_bt' bindtap='submit'>提交</button>
+    <view class="hint">
+    <text wx:if="{{!alldone}}">{{hint}}</text>
+    </view>
+  </view>
+</view>
+
+<!-- 回复弹窗 -->
+<!-- 整个回复区  -->
+<view class='talks-layer' animation='{{talksAnimationData}}'>
+
+ <!-- 回复元素  -->
+ <view class='talks'>
+   <!-- 回复头部  -->
+   <view class='talk-header'>
+       <view class='replyobject1'>
+         <image class="objectavatar" src="{{CommentList[INDEX].commentatorUrl}}" mode="cover"></image>
+	       <view class="objectperson">
+           <text class="objectnickname">{{CommentList[INDEX].commentatorNickname}}</text>
+	         <text class="objecttel">{{CommentList[INDEX].date}}</text>
+	       </view>
+       </view>
+
+       <view class="replyobject2">
+		     <text class="objectcontent">{{CommentList[INDEX].commentcontent}}</text>
+	     </view>
+     <view class='talk-count'>{{CommentList[INDEX].count}} 条回复</view>
+     <image src='/image/close.png' class='talk-close' bindtap='hidereply'></image>
+   </view>
+   <!-- 回复体  -->
+   <scroll-view class='talk-body' scroll-y="true" >
+     <view class='talk-item' wx:for="{{newreplylength}}" wx:key="*this">
+
+       <view class='replyblock1'>
+         <image class="reply-avatar" src="{{CommentList[INDEX].ReplyList[newreplylength-1-item].replierUrl}}" mode="cover"></image>
+	       <view class="reply-person">
+           <text class="reply-nickname">{{CommentList[INDEX].ReplyList[newreplylength-1-item].replierNickname}}</text>
+	         <text class="reply-tel">{{CommentList[INDEX].ReplyList[newreplylength-1-item].date}}</text>
+	       </view>
+       </view>
+
+       <view class="replyblock2">
+		     <text class="replycontent">{{CommentList[INDEX].ReplyList[newreplylength-1-item].replycontent}}</text>
+	     </view>
+     </view>
+   </scroll-view>
+
+   <!-- 回复底部  -->
+<form bindreset="replysubmit">
+<view class="comment_release" >
+   <!-- <view class="left">
+      <textarea class="text" bindinput="replyinput" type="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" placeholder="评论" />
+      <view class="line"/>
+   </view>
+   <button form-type="submit" class="submit" catchtap="replysubmit">发送</button> -->
+   <view class="left">
+      <textarea class="text" bindinput="replyinput" type="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" placeholder="回复" />
+      <view class="line"/>
+   </view>
+   <button form-type="reset" class="submit">发送</button>
+ </view>
+ </form>
+
+ </view>
+</view>
+

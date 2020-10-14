@@ -1,0 +1,45 @@
+<view>
+ <button bindtap='showTalks'>查看评论</button>
+</view>
+
+<!-- 整个评论区  -->
+<view class='talks-layer' animation='{{talksAnimationData}}'>
+
+ <!-- 评论区  -->
+ <view class='talks'>
+   <!-- 评论头部  -->
+   <view class='talk-header'>
+     <view class='talk-count'>{{talks.length}} 条回复</view>
+     <image src='/image/close.png' class='talk-close' bindtap='hideTalks'></image>
+   </view>
+   <!-- 评论体  -->
+   <scroll-view class='talk-body' scroll-y="true" >
+     <view class='talk-item' wx:for="{{talks}}" wx:key="*this">
+
+       <view class='replyblock1'>
+         <image class="reply-avatar" src="{{item.avatarUrl}}" mode="cover"></image>
+	       <view class="reply-person">
+           <text class="reply-nickname">{{item.nickName}}</text>
+	         <text class="reply-tel">{{item.talkTime}}</text>
+	       </view>
+       </view>
+
+       <view class="replyblock2">
+		     <text class="replycontent">{{item.content}}</text>
+	     </view>
+     </view>
+   </scroll-view>
+
+   <!-- 评论底部  -->
+
+<view class="comment_release" >
+   <view class="left">
+      <textarea class="text" placeholder-class="weui-input" fixed="true" maxlength="-1" show-confirm-bar="false" cursor-spacing="15" auto-height="true" placeholder="回复" />
+      <view class="line"/>
+   </view>
+      <image class="emoji" src="/image/add2.png"/>
+      <button form-type="submit" class="submit">发送</button>
+ </view>
+
+ </view>
+</view>

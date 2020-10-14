@@ -1,0 +1,48 @@
+<view wx:if="{{!hasUserInfo && canIUse}}" class="mai">
+  <button class="but" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权登录</button>
+  <view class="mud">——————---—————— </view>
+  <view class="txt" > 欢迎使用微信小程序,我们需要一些个人信息，但我们会严格保护您的隐私！</view>
+</view>
+<block wx:else>
+  <view class="scbg">
+    <text class="txt1">推荐话题</text>
+    <view class="userinfo" catchtap="goTopicdetail" data-topicid="{{Topic[0]._id}}">
+			<view class="firstblock">
+				<image class="userinfo-avatar" src="{{Topic[0].ownerurl}}" mode="cover"></image>
+				<view class="person">
+					<text class="userinfo-nickname">{{Topic[0].ownernickname}}</text>
+					<text class="tel">{{Topic[0].date}}</text>
+				</view>
+			</view>
+
+			<view class="secondblock">
+				<text class="content">{{Topic[0].content}}</text>
+			</view>
+
+			<view class="thirdblock">
+				<view class="positive">{{Topic[0].positive}}</view>
+				<view class="negative">{{Topic[0].negative}}</view>
+			</view>
+      <view class="forthblock">
+        <text class="commentcount">{{Topic[0].count}}次讨论</text>
+      </view>
+    </view>
+   <text class="txt1">话题分类</text>
+  
+  <view class="thirdblock">
+    <view class="click" bindtap="goTopic"  data-type="0">聚焦西大</view>
+    <view class="click" bindtap="goTopic"  data-type="1">青年生活</view>
+  </view>
+  <view class="thirdblock">
+    <view class="click" bindtap="goTopic"  data-type="2">共战疫情</view>
+		<view class="click" bindtap="goTopic"  data-type="3">社会热议</view>
+  </view>
+
+  </view>
+	
+
+  <view class="create" catchtap="create">
+    <image class="createImage" src="/image/create.png"></image>
+  </view>
+
+</block>

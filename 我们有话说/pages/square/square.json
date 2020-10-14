@@ -1,0 +1,8 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "辩论ING",
+  "navigationBarTextStyle": "black",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
+}

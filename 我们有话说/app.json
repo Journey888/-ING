@@ -1,0 +1,41 @@
+{
+  "pages": [
+    
+    "pages/square/square",
+    "pages/topiclist/topiclist",
+    "pages/logs/logs",
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/create/create",
+    "pages/topicdetail/topicdetail",
+    "pages/mytopic/mytopic",
+    "pages/mycollection/mycollection",
+    "pages/myreply/myreply"
+  ],
+  "tabBar": {
+    "list": [
+      {
+        "text": "话题广场",
+        "pagePath": "pages/square/square",
+        "iconPath": "image/square.png",
+        "selectedIconPath": "image/square-selected.png"
+      },
+      {
+        "text": "个人中心",
+        "pagePath": "pages/mine/mine",
+        "iconPath": "image/mine.png",
+        "selectedIconPath": "image/mine-selected.png"
+      }
+    ],
+    "color": "#000",
+    "selectedColor": "#000"
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "辩论ING",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

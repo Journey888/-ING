@@ -1,0 +1,30 @@
+<!--pages/create/create.wxml-->
+<text class="type">话题类型：</text>
+  <view class='list-msg2' bindtap='bindShowMsg'>
+    <text>{{topictype}}</text>
+    <image style='height:20rpx;width:20rpx' src='/image/down.png'></image>
+  </view>
+
+<view class="select_box" wx:if="{{select}}">
+  <view class="select_one" bindtap="mySelect" data-type="0" data-name="聚焦西大">聚焦西大</view>
+  <view class="select_one" bindtap="mySelect" data-type="1" data-name="青年生活">青年生活</view>
+  <view class="select_one" bindtap="mySelect" data-type="2" data-name="共战疫情">共战疫情</view>
+  <view class="select_one" bindtap="mySelect" data-type="3" data-name="社会热议">社会热议</view>
+</view>
+
+<view class="textarea_bg">
+  <textarea placeholder="快来添加话题吧" type="text" bindinput="contentinput" style="height:250rpx" maxlength="50"><view class="word">{{lastarea1}}/50</view>
+  </textarea>
+</view>
+
+<view class="point">
+正方观点：<input type="text" bindinput="positiveinput" class="textinput" maxlength="6"><view class="word2">{{lastarea2}}/6</view></input>
+反方观点：<input type="text" bindinput="negativeinput" class="textinput" maxlength="6"><view class="word3">{{lastarea3}}/6</view></input>
+</view>
+
+<button class="but"  bindtap ="submit" type ='primary'>提交话题</button>
+<view class="hint">
+  <text wx:if="{{!alldone}}">{{hint}}</text>
+</view>
+
+

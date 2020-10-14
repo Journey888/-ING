@@ -1,0 +1,98 @@
+<view class="title">
+  <text class="text">我的回复</text>
+</view>
+<view class="nodata" wx:if="{{nodata}}">
+  <image class="nodataImage" src="/image/nodata.png"></image>
+  <text class="nodataText">暂无评论</text>
+</view>
+
+<block wx:else>
+   <block wx:for="{{CommentList}}"> 
+      <view wx:if="{{item.standpoint==1}}">
+       <view class="comment1"> 
+        <view class="firstblock1">         
+				  <image class="userinfo-avatar" src="{{item.commentatorUrl}}" mode="cover"></image>
+				  <view class="person">
+					  <text class="userinfo-nickname">{{item.commentatorNickname}}</text>
+					  <text class="tel">{{item.date}}</text>
+				  </view>
+          <image class="redpoint" hidden="{{!item.showredpoint}}" src="/image/redpoint.png"></image>
+			  </view>
+
+			  <view class="secondblock2">
+				  <text class="content">{{item.commentcontent}}</text>
+			  </view>
+        <view class="fifthblock">
+          <image class="replyimage" bindtap="showreply" src="/image/reply.png" data-commentitem="{{item}}" data-index="{{index}}"></image>
+          <text class="count">{{item.count}}</text>
+          <image class="deleteimage" hidden="{{item._openid!= openid}}" catchtap="delete" src="/image/delete.png" data-commentid="{{item._id}}" data-topicid="{{item.topicid}}"></image>
+        </view>
+       
+       </view>
+      </view>
+
+      <view wx:else>
+       <view class="comment2"> 
+        <view class="firstblock1">
+				  <image class="userinfo-avatar" src="{{item.commentatorUrl}}" mode="cover"></image>
+				  <view class="person">
+					  <text class="userinfo-nickname">{{item.commentatorNickname}}</text>
+					  <text class="tel">{{item.date}}</text>
+				  </view>
+          <image class="redpoint" hidden="{{!item.showredpoint}}" src="/image/redpoint.png"></image>
+		  	</view>
+
+			  <view class="secondblock2">
+				  <text class="content">{{item.commentcontent}}</text>
+			  </view>
+        <view class="fifthblock"> 
+          <image class="replyimage" bindtap="showreply" src="/image/reply.png" data-commentitem="{{item}}" data-index="{{index}}"></image>
+          <text class="count">{{item.count}}</text>
+          <image class="deleteimage" hidden="{{item._openid!= openid}}" bindtap="delete" src="/image/delete.png" data-commentid="{{item._id}}" data-topicid="{{item.topicid}}"></image>
+        </view>
+       
+       </view>
+      </view>
+   </block>
+  </block>
+
+<!-- 回复弹窗 -->
+<view class='talks-layer' animation='{{talksAnimationData}}'>
+ <!-- 回复元素  -->
+ <view class='talks'>
+   <!-- 回复头部  -->
+   <view class='talk-header'>
+       <view class='replyobject1'>
+         <image class="objectavatar" src="{{CommentList[INDEX].commentatorUrl}}" mode="cover"></image>
+	       <view class="objectperson">
+           <text class="objectnickname">{{CommentList[INDEX].commentatorNickname}}</text>
+	         <text class="objecttel">{{CommentList[INDEX].date}}</text>
+	       </view>
+       </view>
+
+       <view class="replyobject2">
+		     <text class="objectcontent">{{CommentList[INDEX].commentcontent}}</text>
+	   </view>
+     <view class='talk-count'>{{CommentList[INDEX].count}} 条回复</view>
+     <image src='/image/close.png' class='talk-close' bindtap='hidereply'></image>
+     <text catchtap="godetail" class="godetail" data-topicid="{{CommentList[INDEX].topicid}}">查看话题详情</text>
+   </view>
+   <!-- 回复体  -->
+   <scroll-view class='talk-body' scroll-y="true" >
+     <view class='talk-item' wx:for="{{newreplylength}}" wx:key="">
+
+       <view class='replyblock1'>
+         <image class="reply-avatar" src="{{CommentList[INDEX].ReplyList[newreplylength-1-item].replierUrl}}" mode="cover"></image>
+	       <view class="reply-person">
+           <text class="reply-nickname">{{CommentList[INDEX].ReplyList[newreplylength-1-item].replierNickname}}</text>
+	         <text class="reply-tel">{{CommentList[INDEX].ReplyList[newreplylength-1-item].date}}</text>
+	       </view>
+       </view>
+
+       <view class="replyblock2">
+		     <text class="replycontent">{{CommentList[INDEX].ReplyList[newreplylength-1-item].replycontent}}</text>
+	     </view>
+     </view>
+   </scroll-view>
+ </view>
+</view>
